@@ -1,0 +1,22 @@
+# ESPRIT-Edge-Dokumentation (HTML) — bewusst NICHT im Repo enthalten.
+# Die ESPRIT-Edge-Hilfedateien liegen lokal unter ./API-Help-html und sind
+# nicht Teil des Repos. Eingabedateien für den Indexer:
+API-Help-html/
+
+# Vom Indexer erzeugte Suchdatenbank (ChromaDB + SQLite + FTS5)
+# Wird bei Bedarf lokal neu aufgebaut: python indexer.py
+index_data/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
