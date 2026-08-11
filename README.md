@@ -22,12 +22,13 @@ Er läuft komplett auf dem eigenen Rechner – ohne Cloud, ohne API-Kosten.
 ```
 ├── EDGEBOT_V1.py   # Textual-TUI-Chatbot (Ollama + Hybrid-Suche)
 ├── indexer.py      # Baut die Suchdatenbank aus Doxygen-HTML auf
-├── index_data/     # Suchdatenbank (ChromaDB + metadata.db) – NICHT im Repo
+├── index_data/     # Suchdatenbank (ChromaDB + metadata.db) – per Git LFS im Repo
 └── API-Help-html/  # ESPRIT-Edge-Hilfedateien – NICHT im Repo
 ```
 
-> **Hinweis:** `API-Help-html/` (die ESPRIT-Edge-Hilfedateien) und `index_data/`
-> (die generierte Suchdatenbank) sind bewusst **nicht** im Repository enthalten.
+> **Hinweis:** `API-Help-html/` (die ESPRIT-Edge-Hilfedateien) ist bewusst **nicht**
+> im Repository enthalten. `index_data/` (die fertige Suchdatenbank, ~485 MB) wird
+> per **Git LFS** mitgeführt – siehe unten.
 
 ## Voraussetzungen (Apple Silicon)
 
@@ -43,21 +44,36 @@ Er läuft komplett auf dem eigenen Rechner – ohne Cloud, ohne API-Kosten.
   ollama pull qwen2.5-coder:7b
   ```
 
+- **Git LFS** (zum Klonen mit fertiger Suchdatenbank):
+  ```bash
+  brew install git-lfs
+  git lfs install
+  ```
+
 ## Installation
 
 ```bash
 git clone https://github.com/hannesfox/EDGEBOT.git
 cd EDGEBOT
 
+# index_data/ wird per Git LFS ausgeliefert – nach dem Klonen abrufen:
+git lfs install
+git lfs pull
+
 pip install --upgrade pip
 pip install torch sentence-transformers chromadb beautifulsoup4 tqdm
 pip install "textual>=0.60" rich numpy requests
 ```
 
+> **Git LFS:** Die fertige Suchdatenbank `index_data/` (~485 MB) liegt in Git LFS.
+> Ohne `git lfs pull` liegt nur die Suchdatenbank nicht lokal vor; der Index lässt
+> sich alternativ jederzeit mit `python indexer.py` neu erzeugen.
+
 ## Suchdatenbank erstellen
 
 Die ESPRIT-Edge-Hilfedateien liegen lokal unter `./API-Help-html` (nicht Teil des Repos).
-Daraus wird der Index aufgebaut:
+Daraus wird der Index aufgebaut. Der Aufbau ist nur nötig, wenn `index_data/`
+**nicht** per Git LFS vorliegt oder neu erzeugt werden soll:
 
 ```bash
 # Standard (Eingabe ./API-Help-html, Ausgabe ./index_data, 4 Worker)
