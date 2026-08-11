@@ -4,8 +4,8 @@
 API-Help-html/
 
 # Vom Indexer erzeugte Suchdatenbank (ChromaDB + SQLite + FTS5)
-# Wird bei Bedarf lokal neu aufgebaut: python indexer.py
-index_data/
+# index_data/ wird per Git LFS mitgepusht (siehe .gitattributes)
+# Bei Bedarf lokal neu aufbauen: python indexer.py
 
 # Python
 __pycache__/
